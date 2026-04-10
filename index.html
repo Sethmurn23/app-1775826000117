@@ -1,0 +1,571 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToolTrack - Track & Optimize Your Software Spending</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Problem */
+    .problem {
+      padding: 60px 0;
+      background: var(--surface);
+    }
+
+    .problem h2 {
+      font-size: 1.75rem;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .problem ul {
+      list-style: none;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .problem li {
+      padding: 12px 0;
+      padding-left: 28px;
+      position: relative;
+      font-size: 1.1rem;
+    }
+
+    .problem li::before {
+      content: "✕";
+      position: absolute;
+      left: 0;
+      color: #dc2626;
+      font-weight: bold;
+    }
+
+    /* How it works */
+    .how-it-works {
+      padding: 60px 0;
+    }
+
+    .how-it-works h2 {
+      font-size: 1.75rem;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .step {
+      text-align: center;
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+    }
+
+    .step h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Demo */
+    .demo {
+      padding: 60px 0;
+      background: var(--surface);
+    }
+
+    .demo h2 {
+      font-size: 1.75rem;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .demo-form {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .demo-form input {
+      flex: 1;
+      min-width: 150px;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .demo-form button {
+      padding: 12px 24px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .demo-list {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .demo-header {
+      display: grid;
+      grid-template-columns: 1fr 120px 80px;
+      padding: 12px 16px;
+      background: var(--surface);
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .demo-item {
+      display: grid;
+      grid-template-columns: 1fr 120px 80px;
+      padding: 14px 16px;
+      border-top: 1px solid var(--border);
+      align-items: center;
+    }
+
+    .demo-item-name {
+      font-weight: 500;
+    }
+
+    .demo-item-cost {
+      color: var(--text);
+    }
+
+    .demo-delete {
+      background: none;
+      border: none;
+      color: #dc2626;
+      cursor: pointer;
+      font-size: 0.875rem;
+      padding: 4px 8px;
+    }
+
+    .demo-delete:hover {
+      text-decoration: underline;
+    }
+
+    .demo-total {
+      margin-top: 20px;
+      text-align: right;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .demo-total span {
+      color: var(--success);
+    }
+
+    .demo-note {
+      margin-top: 16px;
+      font-size: 0.875rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* Features */
+    .features {
+      padding: 60px 0;
+    }
+
+    .features h2 {
+      font-size: 1.75rem;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Pricing */
+    .pricing {
+      padding: 60px 0;
+      background: var(--surface);
+    }
+
+    .pricing h2 {
+      font-size: 1.75rem;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .pricing-card {
+      max-width: 400px;
+      margin: 0 auto;
+      background: white;
+      border: 2px solid var(--primary);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .pricing-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .pricing-price {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+
+    .pricing-price span {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .pricing ul {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 32px;
+    }
+
+    .pricing li {
+      padding: 8px 0;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .pricing li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    .pricing .btn {
+      display: block;
+      width: 100%;
+    }
+
+    .guarantee {
+      margin-top: 16px;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .demo-form {
+        flex-direction: column;
+      }
+
+      .demo-header, .demo-item {
+        grid-template-columns: 1fr 80px 60px;
+        font-size: 0.875rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Stop Overpaying for Software</h1>
+      <p>For small business owners who waste hours manually tracking tool costs and subscriptions.</p>
+      <a href="#demo" class="btn">Try Free Demo ↓</a>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="problem">
+    <div class="container">
+      <h2>The problem with scattered spreadsheets</h2>
+      <ul>
+        <li>You have no central view of what software you're paying for each month</li>
+        <li>Duplicate or unused subscriptions slip through the cracks for months</li>
+        <li>Manual tracking takes hours and still results in missed renewals</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works">
+    <div class="container">
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Add Your Tools</h3>
+          <p>Enter each tool name and its monthly cost in seconds</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>See Total Instantly</h3>
+          <p>Your total monthly spend updates automatically as you add items</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Spot Savings</h3>
+          <p>Quickly see where you can cut costs by eliminating duplicates</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Demo -->
+  <section class="demo" id="demo">
+    <div class="container">
+      <h2>Try it yourself — no signup required</h2>
+      <form class="demo-form" id="demo-form">
+        <input type="text" id="tool-name" placeholder="Tool name (e.g. Slack)" required>
+        <input type="number" id="tool-cost" placeholder="Monthly cost ($)" step="0.01" min="0" required>
+        <button type="submit">Add Tool</button>
+      </form>
+      <div class="demo-list">
+        <div class="demo-header">
+          <span>Tool</span>
+          <span>Monthly Cost</span>
+          <span></span>
+        </div>
+        <div id="demo-items"></div>
+      </div>
+      <div class="demo-total" id="demo-total"></div>
+      <p class="demo-note">Data is saved to your browser — try refreshing the page!</p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="container">
+      <h2>What you get</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>Centralized Tool Tracking</h3>
+          <p>Keep all your software subscriptions in one place instead of scattered across spreadsheets and emails.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Real-time Cost Totals</h3>
+          <p>See exactly how much you're spending each month the moment you add or remove a tool.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Duplicate Detection</h3>
+          <p>Quickly identify when you have multiple tools doing the same job so you can cancel extras.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Export Your Data</h3>
+          <p>Download a simple report of all your tools and costs to share with your team or accountant.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="pricing">
+    <div class="container">
+      <h2>Simple pricing</h2>
+      <div class="pricing-card">
+        <div class="pricing-name">Starter</div>
+        <div class="pricing-price">$29<span>/month</span></div>
+        <ul>
+          <li>Unlimited tool tracking</li>
+          <li>Automatic cost calculations</li>
+          <li>Duplicate tool detection</li>
+          <li>Export reports to CSV</li>
+          <li>Email reminders for renewals</li>
+        </ul>
+        <a href="#demo" class="btn">Get Started Free</a>
+        <p class="guarantee">30-day money-back guarantee</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function getDefaultItems() {
+      return [
+        { name: "Slack", cost: 12.50 },
+        { name: "Zoom", cost: 14.99 },
+        { name: "Notion", cost: 8.00 }
+      ];
+    }
+
+    let demoItems = JSON.parse(localStorage.getItem('app-1775826000117-demo')) || getDefaultItems();
+
+    function saveDemo() {
+      localStorage.setItem('app-1775826000117-demo', JSON.stringify(demoItems));
+    }
+
+    function renderDemo() {
+      const itemsContainer = document.getElementById('demo-items');
+      const totalContainer = document.getElementById('demo-total');
+
+      if (demoItems.length === 0) {
+        itemsContainer.innerHTML = '<div style="padding: 24px; text-align: center; color: var(--muted);">No tools added yet. Try the demo above!</div>';
+        totalContainer.innerHTML = 'Total monthly spend: <span>$0.00</span>';
+        return;
+      }
+
+      let html = '';
+      let total = 0;
+
+      demoItems.forEach(function(item, index) {
+        total += item.cost;
+        html += '<div class="demo-item">';
+        html += '<span class="demo-item-name">' + item.name + '</span>';
+        html += '<span class="demo-item-cost">$' + item.cost.toFixed(2) + '</span>';
+        html += '<button class="demo-delete" onclick="deleteDemoItem(' + index + ')">Delete</button>';
+        html += '</div>';
+      });
+
+      itemsContainer.innerHTML = html;
+      totalContainer.innerHTML = 'Total monthly spend: <span>$' + total.toFixed(2) + '</span>';
+    }
+
+    function addDemoItem(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('tool-name');
+      const costInput = document.getElementById('tool-cost');
+
+      const name = nameInput.value.trim();
+      const cost = parseFloat(costInput.value);
+
+      if (name && !isNaN(cost) && cost >= 0) {
+        demoItems.push({ name: name, cost: cost });
+        saveDemo();
+        renderDemo();
+        nameInput.value = '';
+        costInput.value = '';
+        nameInput.focus();
+      }
+    }
+
+    function deleteDemoItem(index) {
+      demoItems.splice(index, 1);
+      saveDemo();
+      renderDemo();
+    }
+
+    document.getElementById('demo-form').addEventListener('submit', addDemoItem);
+    window.addEventListener('load', renderDemo);
+  </script>
+
+</body>
+</html>
